@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  database:
+    container_name: timetable-db
+    build:
+      context: ./db
+      dockerfile: db.Dockerfile
+    ports:
+      - "5432:5432"
+    restart: always
+    env_file:
+      - database.env
+    volumes:
+      - timetable-data:/var/lib/postgresql/data
+
+volumes:
+  timetable-data:
+    driver: local
