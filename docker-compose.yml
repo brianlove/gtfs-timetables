@@ -1,6 +1,50 @@
 version: "3"
 
 services:
+  # gui-react:
+  #   container_name: timetable-gui-react
+  #   build:
+  #     context: ./gui-react
+  #     dockerfile: gui-react.Dockerfile
+  #   depends_on:
+  #     - api
+  #   environment:
+  #     REACT_APP_API_URL: http://localhost:3000/api
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./gui-react:/usr/src/app
+  #     - /usr/src/app/node_modules
+
+  # gui-vue:
+  #   container_name: timetable-gui-vue
+  #   build:
+  #     context: ./gui-vue
+  #     dockerfile: gui-vue.Dockerfile
+  #   depends_on:
+  #     - api
+  #   environment:
+  #     VUE_APP_API_URL: http://localhost:3000/api
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./gui-vue:/usr/src/app
+  #     - /usr/src/app/node_modules
+
+  api:
+    container_name: timetable-api
+    build:
+      context: ./api
+      dockerfile: api.Dockerfile
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://timetable:password@database:5432/timetable
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
   database:
     container_name: timetable-db
     build:
