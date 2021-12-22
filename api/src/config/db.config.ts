@@ -2,7 +2,7 @@ export default {
     HOST: "database",
     USER: "timetable",
     PASSWORD: "password",
-    DB: "postgres",
+    DB: "timetable",
     dialect: "postgres",
     pool: {
         max: 5,

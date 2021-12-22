@@ -5,7 +5,8 @@ FROM derhuerst/gtfs-via-postgres
 
 RUN apk add --no-cache postgresql-client
 
-ENV PGPORT=5432 PGUSER=postgres PGPASSWORD=password
+# ENV PGPORT=5432 PGUSER=postgres PGPASSWORD=password
+ENV PGPORT=5432 PGUSER=timetable PGPASSWORD=password
 
 WORKDIR /gtfs
 

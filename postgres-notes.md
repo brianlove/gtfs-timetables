@@ -1,5 +1,10 @@
 # Postgres notes
 
+## Connecting via Docker
+```bash
+$ docker container exec -it CONTAINER_NAME psql -U DATABSE_USER
+```
+
 
 
 ## Describing a table
