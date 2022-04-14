@@ -1,24 +1,23 @@
-
 import { db } from '../db/gtfs-sequelize';
 
 
 function findOne(req, res) {
     const id = req.params.id;
 
-    db.route
+    db.stop
         .findByPk(id)
         .then((data) => {
             if ( data ) {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find route with id=${id}`,
+                    message: `Cannot find station with id=${id}`,
                 });
             }
         })
         .catch((err) => {
             res.status(500).send({
-                message: `Error retrieving route with id=${id}`,
+                message: `Error retrieving station with id=${id}`,
                 error: err.message,
             });
         });
@@ -26,14 +25,14 @@ function findOne(req, res) {
 
 
 function findAll(req, res) {
-    db.route
+    db.stop
         .findAll()
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
-                message: "Error while retrieving routes",
+                message: "Error while retrieving stations",
                 error: err.message,
             });
         });
