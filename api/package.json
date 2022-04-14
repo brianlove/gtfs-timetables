@@ -8,7 +8,7 @@
     "dev": "nodemon"
   },
   "author": "Brian Love",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
