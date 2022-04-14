@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
     wheelchair_accessible: DataTypes.INTEGER,
     bikes_allowed: DataTypes.INTEGER
   }, util.makeTableOptions(sequelize, {
-    freezeTableName: true,
+    timestamps: false,
     classMethods: {
       associate: function (models) {
 

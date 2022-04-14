@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     route_color: DataTypes.STRING(255),
     route_text_color: DataTypes.STRING(255)
   }, util.makeTableOptions(sequelize, {
-    freezeTableName: true,
+    timestamps: false,
     classMethods: {
       associate: function (models) {
 

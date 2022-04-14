@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     shape_dist_traveled: DataTypes.FLOAT,
     timepoint: DataTypes.INTEGER
   }, util.makeTableOptions(sequelize, {
-    freezeTableName: true,
+    timestamps: false,
     classMethods: {
       associate: function (models) {
         StopTime.belongsTo(models.trip, {

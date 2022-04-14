@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     stop_timezone: DataTypes.STRING(100),
     wheelchair_boarding: DataTypes.INTEGER
   }, util.makeTableOptions(sequelize, {
-    freezeTableName: true,
+    timestamps: false,
     classMethods: {
       associate: function (models) {
 

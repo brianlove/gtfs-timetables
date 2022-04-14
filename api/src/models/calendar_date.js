@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     exception_type: DataTypes.INTEGER
   }, util.makeTableOptions(sequelize, {
-    freezeTableName: true,
+    timestamps: false,
     classMethods: {
       associate: function (models) {
         CalendarDate.belongsTo(models.calendar, {

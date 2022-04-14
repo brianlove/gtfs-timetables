@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     transfer_type: DataTypes.INTEGER,
     min_transfer_time: DataTypes.INTEGER
   }, util.makeTableOptions(sequelize, {
-    freezeTableName: true,
+    timestamps: false,
     classMethods: {
       associate: function (models) {
 

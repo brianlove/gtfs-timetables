@@ -1,7 +1,7 @@
 // copied from https://github.com/sequelize/express-example
-var fs = require("fs"),
-  path = require("path"),
-  Sequelize = require("sequelize");
+var fs = require("fs");
+var path = require("path");
+var Sequelize = require("sequelize");
 
 module.exports = function(config, options) {
   options = options || {}
@@ -25,7 +25,7 @@ module.exports = function(config, options) {
       return (file.indexOf(".") > 0) && (file !== "index.js");
     })
     .forEach(function(file) {
-      var model = sequelize.import(path.join(__dirname, file));
+      var model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
       db[model.name] = model;
     });
 
