@@ -1,11 +1,11 @@
-import { db } from '../db/gtfs-sequelize';
+
+import { Stop } from '../models';
 
 
 function findOne(req, res) {
     const id = req.params.id;
 
-    db.stop
-        .findByPk(id)
+    Stop.findByPk(id)
         .then((data) => {
             if ( data ) {
                 res.send(data);
@@ -25,8 +25,7 @@ function findOne(req, res) {
 
 
 function findAll(req, res) {
-    db.stop
-        .findAll()
+    Stop.findAll()
         .then((data) => {
             res.send(data);
         })
@@ -37,6 +36,7 @@ function findAll(req, res) {
             });
         });
 }
+
 
 export default {
     findOne,

@@ -1,7 +1,12 @@
-var util = require('../lib/util')
+import { DataTypes } from 'sequelize';
 
-module.exports = function(sequelize, DataTypes) {
-  var StopTime = sequelize.define("stop_time", {
+import util from '../lib/util';
+
+import sequelize from '../db/sequelize';
+
+const StopTime = sequelize.define(
+  "stop_time",
+  {
     trip_id: {
       type: DataTypes.STRING(255),
       primaryKey: true,
@@ -29,21 +34,10 @@ module.exports = function(sequelize, DataTypes) {
     drop_off_type: DataTypes.INTEGER,
     shape_dist_traveled: DataTypes.FLOAT,
     timepoint: DataTypes.INTEGER
-  }, util.makeTableOptions(sequelize, {
+  },
+  {
     timestamps: false,
-    classMethods: {
-      associate: function (models) {
-        StopTime.belongsTo(models.trip, {
-          foreignKeyContraint: true,
-          foreignKey: "trip_id"
-        });
-        StopTime.belongsTo(models.stop, {
-          foreignKeyContraint: true,
-          foreignKey: "stop_id"
-        });
-      }
-    }
-  }));
+  }
+);
 
-  return StopTime;
-}
+export default StopTime;

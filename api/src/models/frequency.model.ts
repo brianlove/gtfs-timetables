@@ -1,7 +1,12 @@
-var util = require('../lib/util')
+import { DataTypes } from 'sequelize';
 
-module.exports = function(sequelize, DataTypes) {
-  var Frequency = sequelize.define("frequency", {
+import util from '../lib/util';
+
+import sequelize from '../db/sequelize';
+
+const Frequency = sequelize.define(
+  "frequency",
+  {
     trip_id: {
       type: DataTypes.STRING(255),
       primaryKey: true,
@@ -20,19 +25,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     headway_secs: DataTypes.INTEGER,
     exact_times: DataTypes.INTEGER
-  }, util.makeTableOptions(sequelize, {
+  },
+  {
     freezeTableName: true,
-    classMethods: {
-      associate: function (models) {
+  }
+);
 
-        Frequency.belongsTo(models.trip, {
-          foreignKeyContraint: true,
-          foreignKey: "trip_id"
-        });
-
-      }
-    }
-  }));
-
-  return Frequency;
-}
+export default Frequency;

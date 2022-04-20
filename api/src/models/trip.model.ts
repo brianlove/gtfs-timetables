@@ -1,7 +1,13 @@
-var util = require('../lib/util')
 
-module.exports = function(sequelize, DataTypes) {
-  var Trip = sequelize.define("trip", {
+import { DataTypes } from 'sequelize';
+
+import util from '../lib/util';
+
+import sequelize from '../db/sequelize';
+
+const Trip = sequelize.define(
+  "trip", 
+  {
     route_id: {
       type: DataTypes.STRING(255),
       references: {
@@ -30,32 +36,32 @@ module.exports = function(sequelize, DataTypes) {
     shape_id: DataTypes.STRING(255),  // association omitted.  See spatial trip model for relation.
     wheelchair_accessible: DataTypes.INTEGER,
     bikes_allowed: DataTypes.INTEGER
-  }, util.makeTableOptions(sequelize, {
+  },
+  {
     timestamps: false,
-    classMethods: {
-      associate: function (models) {
+  }
+);
 
-        Trip.belongsTo(models.route, {
-          foreignKeyContraint: true,
-          foreignKey: "route_id"
-        });
+// Trip.associate = function(models) {
+//   console.error("[trip:new] associate()"); // DEBUG
+//   console.info("[trip:new] associate()"); // DEBUG
+//   Trip.belongsTo(models.route, {
+//     foreignKeyConstraint: true,
+//     foreignKey: "route_id"
+//   });
 
-        Trip.belongsTo(models.calendar, {
-          foreignKeyContraint: true,
-          foreignKey: "service_id"
-        });
+//   Trip.belongsTo(models.calendar, {
+//     foreignKeyConstraint: true,
+//     foreignKey: "service_id"
+//   });
 
-        Trip.hasMany(models.stop_time, {
-          foreignKey: 'trip_id'
-        });
+//   Trip.hasMany(models.stop_time, {
+//     foreignKey: 'trip_id'
+//   });
 
-        Trip.hasMany(models.frequency, {
-          foreignKey: 'trip_id'
-        });
+//   Trip.hasMany(models.frequency, {
+//     foreignKey: 'trip_id'
+//   });
+// }
 
-      }
-    }
-  }));
-
-  return Trip;
-}
+export default Trip

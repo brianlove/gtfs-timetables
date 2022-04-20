@@ -1,12 +1,11 @@
 
-import { db } from '../db/gtfs-sequelize';
+import { Route } from '../models';
 
 
 function findOne(req, res) {
     const id = req.params.id;
 
-    db.route
-        .findByPk(id)
+    Route.findByPk(id)
         .then((data) => {
             if ( data ) {
                 res.send(data);
@@ -26,8 +25,7 @@ function findOne(req, res) {
 
 
 function findAll(req, res) {
-    db.route
-        .findAll()
+    Route.findAll()
         .then((data) => {
             res.send(data);
         })
@@ -39,7 +37,35 @@ function findAll(req, res) {
         });
 }
 
+
+function findRouteStations(req, res) {
+    const id = req.params.id;
+
+    Route.findByPk(id)
+        .then((data) => {
+            //
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: "Error while retrieving route stations",
+                error: err.message,
+            });
+        });
+}
+
+
+function debug(req, res) {
+    res.send({
+        keys: Object.keys(Route),
+        associations: Route.associations,
+        // tableAttributes: Route.tableAttributes,
+    });
+}
+
+
 export default {
     findOne,
     findAll,
+    findRouteStations,
+    debug,
 }

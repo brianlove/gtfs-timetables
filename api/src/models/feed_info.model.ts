@@ -1,7 +1,12 @@
-var util = require('../lib/util')
+import { DataTypes } from 'sequelize';
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define("feed_info", {
+// import util from '../lib/util';
+
+import sequelize from '../db/sequelize';
+
+const FeedInfo = sequelize.define(
+  "feed_info",
+  {
     feed_publisher_name: {
       type: DataTypes.STRING(255),
       primaryKey: true
@@ -11,7 +16,10 @@ module.exports = function(sequelize, DataTypes) {
     feed_start_date: DataTypes.DATE,
     feed_end_date: DataTypes.DATE,
     feed_version: DataTypes.STRING(255)
-  }, util.makeTableOptions(sequelize, {
-    freezeTableName: true
-  }));
-}
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+export default FeedInfo;

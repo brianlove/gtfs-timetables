@@ -1,7 +1,12 @@
-var util = require('../lib/util')
+import { DataTypes } from 'sequelize';
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define("shape", {
+import util from '../lib/util';
+
+import sequelize from '../db/sequelize';
+
+const Shape = sequelize.define(
+  "shape",
+  {
     shape_id: {
       type: DataTypes.STRING(255),
       primaryKey: true
@@ -13,7 +18,10 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     shape_dist_traveled: DataTypes.FLOAT
-  }, util.makeTableOptions(sequelize, {
-    freezeTableName: true
-  }));
-}
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+export default Shape;
