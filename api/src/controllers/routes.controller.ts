@@ -1,5 +1,5 @@
 
-import { Route } from '../models';
+import { Route, StopTime, Trip } from '../models';
 
 
 function findOne(req, res) {
@@ -41,9 +41,22 @@ function findAll(req, res) {
 function findRouteStations(req, res) {
     const id = req.params.id;
 
-    Route.findByPk(id)
+    // TODO - need to pull station information up to top level
+    //        (don't need anything about specific Trips)
+    Route.findByPk(id, {
+            include: [
+                {
+                    model: Trip,
+                    include: [
+                        {
+                            model: StopTime,
+                        },
+                    ],
+                }
+            ],
+        })
         .then((data) => {
-            //
+            res.send(data);
         })
         .catch((err) => {
             res.status(500).send({

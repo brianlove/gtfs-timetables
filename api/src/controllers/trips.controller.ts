@@ -56,6 +56,37 @@ function findTripsAndStopTimesForRoute(req, res) {
             include: [
                 {
                     model: StopTime,
+                    // through: {
+                    //     as: 'stops',
+                    // },
+                },
+            ],
+        })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: "Error while retrieving trips",
+                error: err.message,
+            });
+        });
+}
+
+
+function findTripsForTrain(req, res) {
+    const id = req.params.id;
+
+    Trip.findAll({
+            where: {
+                trip_short_name: id,
+            },
+            include: [
+                {
+                    model: StopTime,
+                    // through: {
+                    //     as: 'stops',
+                    // },
                 },
             ],
         })
@@ -83,5 +114,6 @@ function debug(req, res) {
 export default {
     findTripsForRoute,
     findTripsAndStopTimesForRoute,
+    findTripsForTrain,
     debug,
 }

@@ -2,7 +2,7 @@
 
 ## Connecting via Docker
 ```bash
-$ docker container exec -it CONTAINER_NAME psql -U DATABSE_USER
+$ docker container exec -it CONTAINER_NAME psql -U DATABASE_USER
 ```
 
 
