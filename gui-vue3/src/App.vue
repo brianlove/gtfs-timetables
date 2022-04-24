@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
+import HelloWorld from '@/components/HelloWorld.vue';
+import Navbar from '@/components/Navbar.vue';
 </script>
 
 <template>
   <header>
+    <Navbar />
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
@@ -35,7 +37,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 header {
   line-height: 1.5;
-  max-height: 100vh;
+  /* max-height: 100vh; */
 }
 
 .logo {
@@ -88,12 +90,12 @@ nav a:first-of-type {
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
     padding: 0 2rem;
   }
 
-  header {
+  /* header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
@@ -103,7 +105,7 @@ nav a:first-of-type {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
-  }
+  } */
 
   .logo {
     margin: 0 2rem 0 0;
