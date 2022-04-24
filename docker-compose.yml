@@ -16,11 +16,11 @@ services:
   #     - ./gui-react:/usr/src/app
   #     - /usr/src/app/node_modules
 
-  gui-vue:
+  gui-vue3:
     container_name: timetable-gui-vue
     build:
-      context: ./gui-vue
-      dockerfile: gui-vue.Dockerfile
+      context: ./gui-vue3
+      dockerfile: gui-vue3.Dockerfile
     depends_on:
       - api
     environment:
@@ -30,7 +30,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./gui-vue:/usr/src/app
+      - ./gui-vue3:/usr/src/app
       - /usr/src/app/node_modules
 
   api:
