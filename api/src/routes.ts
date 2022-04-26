@@ -12,6 +12,7 @@ router.get('/routes/all', RoutesController.findAll);
 router.get('/routes/:id', RoutesController.findOne);
 router.get('/routes/:id/stations', RoutesController.findRouteStations);
 router.get('/routes/:id/trips', TripsController.findTripsForRoute);
+router.get('/routes/:id/detailsAndTrips', RoutesController.findRouteTrips);
 // router.get('/routes/:id/tripsAndStops', TripsController.findTripsAndStopTimesForRoute);
 
 // router.get('/trips/debug', TripsController.debug);

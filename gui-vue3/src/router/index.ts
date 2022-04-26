@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import HomeView from '../views/HomeView.vue';
 import RouteList from '../views/RouteList.vue';
+import RouteDetailPage from '../views/RouteDetailPage.vue';
 import TrainDetail from '../views/TrainDetail.vue';
 
 const router = createRouter({
@@ -26,6 +27,18 @@ const router = createRouter({
       component: RouteList,
     },
     {
+      path: '/routes/:id',
+      name: 'routePage',
+      component: RouteDetailPage,
+      props: (route) => {
+        const routeId = Number.parseInt(<string>route.params.id, 10);
+        if ( Number.isNaN(routeId) ) {
+          return 0;
+        }
+        return { routeId };
+      },
+    },
+    {
       path: '/train/:id',
       name: 'train',
       component: TrainDetail,
@@ -35,7 +48,7 @@ const router = createRouter({
           return 0;
         }
         return { trainId };
-      }
+      },
     },
   ],
 });

@@ -12,6 +12,22 @@ interface RawGtfsCalendar {
     end_date: string,
 };
 
+interface RawGtfsRouteAndTrips {
+    route_id: string,
+    agency_id?: string,
+    route_short_name?: string | null,
+    route_long_name?: string | null,
+    route_desc?: string | null,
+    route_type?: string | null,
+    route_url?: string | null,
+    route_color?: string | null,
+    route_text_color?: string | null,
+    route_sort_order?: string | null,
+    continuous_pickup?: string | null,
+    continuous_drop_off?: string | null,
+    trips: Array<RawGtfsTripExtended>,
+};
+
 interface RawGtfsStopTime {
     trip_id: string,
     arrival_time: {
@@ -52,6 +68,7 @@ interface RawGtfsTripExtended extends RawGtfsTrip {
 
 export type {
     RawGtfsCalendar,
+    RawGtfsRouteAndTrips,
     RawGtfsStopTime,
     RawGtfsTrip,
     RawGtfsTripExtended,

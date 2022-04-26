@@ -1,5 +1,5 @@
 
-import { Route, StopTime, Trip } from '../models';
+import { Calendar, Route, StopTime, Trip } from '../models';
 
 
 function findOne(req, res) {
@@ -67,6 +67,36 @@ function findRouteStations(req, res) {
 }
 
 
+function findRouteTrips(req, res) {
+    const id = req.params.id;
+
+    Route.findByPk(id, {
+            include: [
+                {
+                    model: Trip,
+                    include: [
+                        {
+                            model: StopTime,
+                        },
+                        {
+                            model: Calendar,
+                        },
+                    ],
+                },
+            ],
+        })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: "Error while retrieving route trips",
+                error: err.message,
+            });
+        });
+}
+
+
 function debug(req, res) {
     res.send({
         keys: Object.keys(Route),
@@ -80,5 +110,6 @@ export default {
     findOne,
     findAll,
     findRouteStations,
+    findRouteTrips,
     debug,
 }

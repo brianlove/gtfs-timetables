@@ -9,6 +9,22 @@ enum LocationType {
     BoardingArea,
 };
 
+interface RouteDetails {
+    routeId: number,
+    agencyId: number,
+    shortName?: string,
+    longName?: string,
+    desc?: string,
+    type: string, // TODO to change
+    url?: string,
+    color?: string,
+    textColor?: string,
+};
+
+interface Route extends RouteDetails {
+    trains: Array<Train>,
+}
+
 
 interface Schedule {
     monday: boolean,
@@ -64,12 +80,16 @@ interface Trip {
 interface Train {
     routeId: number,
     agencyId: number,
+    name: string,
+    direction: 0 | 1 | undefined,
     trips: Array<Trip>,
 };
 
 
 
 export type {
+    Route,
+    RouteDetails,
     Schedule,
     Stop,
     Trip,
