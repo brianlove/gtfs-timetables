@@ -17,7 +17,7 @@ services:
   #     - /usr/src/app/node_modules
 
   gui-vue3:
-    container_name: timetable-gui-vue
+    container_name: timetable-gui-vue3
     build:
       context: ./gui-vue3
       dockerfile: gui-vue3.Dockerfile

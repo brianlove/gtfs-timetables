@@ -23,6 +23,7 @@ const Calendar = sequelize.define(
   },
   {
     freezeTableName: true,
+    timestamps: false,
   }
 );
 

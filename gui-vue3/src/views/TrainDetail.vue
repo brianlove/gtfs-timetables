@@ -2,49 +2,84 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-import { getTrainDetail } from '../api';
+import { getRoute, getTrainDetail } from '../api';
+import SingleTimetable from '@/components/SingleTimetable.vue';
 
 const props = defineProps({
-    trainId: Number,
+    trainId: {
+        type: Number,
+        required: true,
+    },
 });
 
-const router = useRouter();
-const route = useRoute();
+const VueRouter = useRouter();
+const VueRoute = useRoute();
 
-const rawDetails = ref([]);
-const trips = ref([]);
-// const stations = ref([]);
+const train = ref([]);
+const routeDetails = ref({});
 
 onBeforeMount( async () => {
     console.info('mounting...');
-    rawDetails.value = await getTrainDetail(props.trainId);
-    rawDetails.value.forEach((train, ix) => {
-        console.info("train:", train); // DEBUG
-        const {stop_times, ...basics} = train;
-        console.info(ix, basics, stop_times); // DEBUG
-        trips.value.push({
-            basics,
-            stop_times,
-            stations: stop_times.map(entry => entry.stop_id),
-        })
-    });
+    train.value = await getTrainDetail(props.trainId);
+    routeDetails.value = await getRoute(train.value.routeId);
 })
 
 </script>
 
 <template>
 <div>
-    <div class="detail" v-for="(detail, index) in trips" :key="index">
-        <!-- {{detail}} -->
-        {{detail.basics}}
-        <div class="stations">
-            {{detail.stations}}
-        </div>
+    <h3>
+        {{routeDetails.route_long_name || 'Train'}} #{{trainId}}
+    </h3>
+
+    <div class="trip-selector">
+        <button type="button" class="btn btn-outline-secondary" v-for="(trip, index) in train.trips" :key="index">
+            {{trip.serviceStartDate}} &ndash; {{trip.serviceEndDate}}
+        </button>
     </div>
+
+
+    <div class="detail" v-for="(trip, index) in train.trips" :key="index">
+        <div>
+            <label>Line:</label>
+            {{routeDetails.route_long_name}}
+        </div>
+        <div>
+            <label>Destination:</label>
+            {{trip.headsign}}
+        </div>
+        <div>
+            <label>Service period:</label>
+            {{trip.serviceStartDate}} &ndash; {{trip.serviceEndDate}}
+        </div>
+        <div v-if="routeDetails.route_url">
+            <label>Website:</label>
+            <a :href="routeDetails.route_url" target="_blank">{{routeDetails.route_url}}</a>
+        </div>
+
+        <hr />
+
+        <SingleTimetable :trip="trip" />
+    </div>
+
+    <!-- <TrainTimetable :trips="trips" /> -->
 </div>
 </template>
 
 <style>
+label {
+    font-weight: 700;
+    margin-right: 0.25rem;
+}
+
+.trip-selector {
+    margin-bottom: 0.5rem;
+}
+
+.trip-selector button {
+    margin-right: 0.5rem;
+}
+
 .detail {
     background-color: lightblue;
     border: 1px solid gray;

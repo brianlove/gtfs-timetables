@@ -1,5 +1,5 @@
 
-import { StopTime, Trip } from '../models';
+import { Calendar, StopTime, Trip } from '../models';
 
 
 function findTripsForRoute(req, res) {
@@ -87,6 +87,9 @@ function findTripsForTrain(req, res) {
                     // through: {
                     //     as: 'stops',
                     // },
+                },
+                {
+                    model: Calendar,
                 },
             ],
         })
