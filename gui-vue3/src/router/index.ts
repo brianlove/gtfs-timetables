@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import RouteList from '../views/RouteList.vue';
 import RouteDetailPage from '../views/RouteDetailPage.vue';
-import TrainDetail from '../views/TrainDetail.vue';
+import TrainDetailPage from '../views/TrainDetailPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: '/train/:id',
       name: 'train',
-      component: TrainDetail,
+      component: TrainDetailPage,
       props: (route) => {
         const trainId = Number.parseInt(<string>route.params.id, 10);
         if ( Number.isNaN(trainId) ) {
