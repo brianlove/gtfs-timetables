@@ -1,4 +1,6 @@
 
+import { Op } from 'sequelize';
+
 import { Calendar, Route, StopTime, Trip } from '../models';
 
 
@@ -80,6 +82,14 @@ function findRouteTrips(req, res) {
                         },
                         {
                             model: Calendar,
+                            where: {
+                                start_date: {
+                                    [Op.lte]: '2022-04-27',
+                                },
+                                end_date: {
+                                    [Op.gte]: '2022-04-27',
+                                },
+                            },
                         },
                     ],
                 },
