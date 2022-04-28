@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, PropType, ref } from 'vue';
+import { onBeforeMount, PropType, ref } from 'vue';
 
 import type { Trip } from '@/types';
 import { MAJOR_STATIONS } from '@/util';

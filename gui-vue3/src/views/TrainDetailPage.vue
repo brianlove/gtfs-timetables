@@ -3,6 +3,7 @@ import { onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { getRoute, getTrainDetail } from '../api';
+
 import SingleTimetable from '@/components/SingleTimetable.vue';
 
 const props = defineProps({

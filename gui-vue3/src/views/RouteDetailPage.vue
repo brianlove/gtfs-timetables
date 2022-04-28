@@ -4,6 +4,8 @@ import { useRoute, useRouter } from 'vue-router';
 
 import { getRouteAndTrips } from '../api';
 
+import MultiTimetable from '@/components/MultiTimetable.vue';
+
 const props = defineProps({
     routeId: {
         type: Number,
@@ -15,9 +17,11 @@ const VueRouter = useRouter();
 const VueRoute = useRoute();
 
 const route = ref({});
+const stations = ref([]);
 
 onBeforeMount( async () => {
     route.value = await getRouteAndTrips(props.routeId);
+    stations.value = route.value.trains[0].trips[0].stops.map(stop => stop.stopId);
 })
 
 
@@ -34,8 +38,10 @@ onBeforeMount( async () => {
     </div>
     <div>
         <label>Trains:</label>
-        {{route.trains.map(train => train.trainId)}}
+        {{route.trains?.map(train => train.trainId)}}
     </div>
+
+    <MultiTimetable v-if="route.trains" :trains="route.trains" :stations="stations" />
 </div>
 </template>
 

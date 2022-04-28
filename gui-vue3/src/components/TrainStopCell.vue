@@ -22,13 +22,18 @@ const props = defineProps({
 
 <template>
 <td class="cell">
-    <div v-if="last || major || (depart.subtract(arrive) > 5)">
-        <span class="action">Ar</span>
-        <span class="time">{{arrive}}</span>
+    <div v-if="arrive && depart">
+        <div v-if="last || major">
+            <span class="action">Ar</span>
+            <span class="time">{{arrive}}</span>
+        </div>
+        <div v-if="!last">
+            <span class="action">Dp</span>
+            <span class="time">{{depart}}</span>
+        </div>
     </div>
-    <div v-if="!last">
-        <span class="action">Dp</span>
-        <span class="time">{{depart}}</span>
+    <div v-else>
+        &nbsp;
     </div>
 </td>
 </template>
