@@ -83,21 +83,24 @@ const stationMapping = computed(() => {
                 {{trainStations[train.trainId][station]}}
             </td> -->
             <!-- <div> -->
-            <TrainStopCell
-                v-for="(station, ix) in stations"
-                class="table-col-train"
-                :arrive="stationMapping[train.trainId][station]?.arrivalTime"
-                :depart="stationMapping[train.trainId][station]?.departureTime"
-                :first="ix == 0"
-                :last="ix == stations.length - 1"
-                :major="MAJOR_STATIONS.includes(station)" />
+            <td v-for="(station, ix) in stations">
+                <TrainStopCell
+                    v-if="stationMapping[train.trainId][station]"
+                    class="table-col-train"
+                    :arrive="stationMapping[train.trainId][station]?.arrivalTime"
+                    :depart="stationMapping[train.trainId][station]?.departureTime"
+                    :first="ix == 0"
+                    :last="ix == stations.length - 1"
+                    :major="MAJOR_STATIONS.includes(station)" />
+                <div v-else>&nbsp;</div>
+            </td>
             <!-- </div> -->
         </tr>
     </tbody>
 </table>
 </template>
 
-<style>
+<style scoped>
 table {
     background-color: lightyellow;
     border: 1px solid #ccc;
@@ -130,6 +133,11 @@ th {
 }
 
 td {
+    background-clip: padding-box;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px;
+    /* border: 1px solid #ccc; */
     width: 80px;
 }
 

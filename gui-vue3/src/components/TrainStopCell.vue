@@ -21,9 +21,9 @@ const props = defineProps({
 </script>
 
 <template>
-<td class="cell">
+<div class="cell" :class="{major: major}">
     <div v-if="arrive && depart">
-        <div v-if="last || major">
+        <div v-if="last || (major && !first)">
             <span class="action">Ar</span>
             <span class="time">{{arrive}}</span>
         </div>
@@ -35,12 +35,12 @@ const props = defineProps({
     <div v-else>
         &nbsp;
     </div>
-</td>
+</div>
 </template>
 
 <style scoped>
 .cell {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     display: flex;
     flex-direction: column;
     padding-left: 0.25rem;
@@ -60,5 +60,10 @@ const props = defineProps({
 
 .time {
     float: right;
+}
+
+.major .action,
+.major .time {
+    font-weight: bold;
 }
 </style>
