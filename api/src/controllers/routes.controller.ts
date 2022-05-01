@@ -1,13 +1,13 @@
 
 import { Op } from 'sequelize';
 
-import { Calendar, Route, StopTime, Trip } from '../models';
+import { Calendar, RouteModel, StopTime, TripModel } from '../models';
 
 
 function findOne(req, res) {
     const id = req.params.id;
 
-    Route.findByPk(id)
+    RouteModel.findByPk(id)
         .then((data) => {
             if ( data ) {
                 res.send(data);
@@ -27,7 +27,7 @@ function findOne(req, res) {
 
 
 function findAll(req, res) {
-    Route.findAll()
+    RouteModel.findAll()
         .then((data) => {
             res.send(data);
         })
@@ -45,10 +45,10 @@ function findRouteStations(req, res) {
 
     // TODO - need to pull station information up to top level
     //        (don't need anything about specific Trips)
-    Route.findByPk(id, {
+    RouteModel.findByPk(id, {
             include: [
                 {
-                    model: Trip,
+                    model: TripModel,
                     include: [
                         {
                             model: StopTime,
@@ -72,10 +72,10 @@ function findRouteStations(req, res) {
 function findRouteTrips(req, res) {
     const id = req.params.id;
 
-    Route.findByPk(id, {
+    RouteModel.findByPk(id, {
             include: [
                 {
-                    model: Trip,
+                    model: TripModel,
                     include: [
                         {
                             model: StopTime,
@@ -109,9 +109,8 @@ function findRouteTrips(req, res) {
 
 function debug(req, res) {
     res.send({
-        keys: Object.keys(Route),
-        associations: Route.associations,
-        // tableAttributes: Route.tableAttributes,
+        keys: Object.keys(RouteModel),
+        associations: RouteModel.associations,
     });
 }
 

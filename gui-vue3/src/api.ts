@@ -132,17 +132,7 @@ function convertRawTrip(rawTrip: RawGtfsTripExtended) : Trip {
 function getTrainDetail(trainId: number) : Promise<Train> {
     return fetch(`${API_URL}/train/${trainId}`)
         .then(response => response.json())
-        .then((rawTrips: Array<RawGtfsTripExtended>) => {
-            const trips = rawTrips.map(convertRawTrip);
-
-            return {
-                routeId: trips[0].routeId,
-                direction: trips[0].direction,
-                name: trips[0].shortName,
-                // agencyId,
-                trips,
-            } as Train;
-        })
+        .then(data => data as Train)
         .then((response) => {
             console.info("getTrainTrips response:", response); // DEBUG
             return response;

@@ -53,10 +53,10 @@ export {
     FareRule,
     FeedInfo,
     Frequency,
-    Route,
+    Route as RouteModel,
     Shape,
     Stop,
     StopTime,
     Transfer,
-    Trip,
+    Trip as TripModel,
 };

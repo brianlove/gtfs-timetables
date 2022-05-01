@@ -57,10 +57,6 @@ const MAJOR_STATIONS = [
 ];
 
 
-export type {
-    TimeObject,
-};
-
 export {
     MAJOR_STATIONS,
     NonBoundedTime,

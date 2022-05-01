@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 
-import type { NonBoundedTime } from '@/util';
+import { NonBoundedTime, TimeObject } from '@/util';
 
 const props = defineProps({
     arrive: {
-        type: Object as PropType<NonBoundedTime>,
+        type: Object as PropType<TimeObject>,
         required: true,
     },
     depart: {
-        type: Object as PropType<NonBoundedTime>,
+        type: Object as PropType<TimeObject>,
         required: true,
     },
     first: Boolean,
@@ -18,6 +19,14 @@ const props = defineProps({
         default: false,
     },
 });
+
+const arrivalTime = computed(() => {
+    return new NonBoundedTime(props.arrive);
+});
+
+const departureTime = computed(() => {
+    return new NonBoundedTime(props.depart);
+});
 </script>
 
 <template>
@@ -25,11 +34,11 @@ const props = defineProps({
     <div v-if="arrive && depart">
         <div v-if="last || (major && !first)">
             <span class="action">Ar</span>
-            <span class="time">{{arrive}}</span>
+            <span class="time">{{arrivalTime}}</span>
         </div>
         <div v-if="!last">
             <span class="action">Dp</span>
-            <span class="time">{{depart}}</span>
+            <span class="time">{{departureTime}}</span>
         </div>
     </div>
     <div v-else>
