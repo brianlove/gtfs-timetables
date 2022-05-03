@@ -41,7 +41,7 @@ onBeforeMount( async () => {
         <!-- {{route.trains?.map(train => train.trainId)}} -->
     </div>
 
-    <MultiTimetable class="mt-2" v-if="route.trains" :trains="route.trains" />
+    <MultiTimetable class="mt-2" v-if="route.trains" :route="props.routeId" :trains="route.trains" />
 </div>
 </template>
 

@@ -52,13 +52,7 @@ class NonBoundedTime {
 }
 
 
-const MAJOR_STATIONS = [
-    'BOS', 'SPG', 'NHV', 'NYP', 'PHL', 'WAS', 'CHI',
-];
-
-
 export {
-    MAJOR_STATIONS,
     NonBoundedTime,
     timeObjectToString,
 };

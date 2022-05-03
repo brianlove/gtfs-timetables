@@ -2,7 +2,7 @@
 import { onBeforeMount, PropType, ref } from 'vue';
 
 import type { Trip } from '@/types';
-import { MAJOR_STATIONS } from '@/util';
+import { MAJOR_STATIONS } from '@/util/amtrak';
 
 import TrainStopCell from './TrainStopCell.vue';
 
