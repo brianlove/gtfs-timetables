@@ -55,8 +55,8 @@ export {
     Frequency,
     Route as RouteModel,
     Shape,
-    Stop,
-    StopTime,
+    Stop as StopModel,
+    StopTime as StopTimeModel,
     Transfer,
     Trip as TripModel,
 };

@@ -1,13 +1,31 @@
 
-import type { Route, Schedule, Train, Trip, TripStop } from '@/types';
-import type { RawGtfsRouteAndTrips, RawGtfsStopTime, RawGtfsTripExtended } from '@/types/raw';
+import type { Route, Schedule, Stop, Train, TripWithStops, TripStop } from '@/types';
+import type { RawGtfsCalendar, RawGtfsStopExtended, RawGtfsStopTime, RawGtfsTripExtended } from '@/types/raw';
 
 import { NonBoundedTime } from './time-util';
+
+
+/**
+ * Convert the GTFS/database format of a service schedule into our internal
+ * `Schedule` format.
+ */
+function convertRawCalendar(calendar: RawGtfsCalendar): Schedule {
+    return {
+        monday: calendar.monday == 'available',
+        tuesday: calendar.tuesday == 'available',
+        wednesday: calendar.wednesday == 'available',
+        thursday: calendar.thursday == 'available',
+        friday: calendar.friday == 'available',
+        saturday: calendar.saturday == 'available',
+        sunday: calendar.sunday == 'available',
+    } as Schedule;
+}
+
 
 /**
  * Convert the GTFS/database format of a trip into our internal `Trip` format.
  */
- function convertRawTrip(rawTrip: RawGtfsTripExtended) : Trip {
+function convertRawTrip(rawTrip: RawGtfsTripExtended) : TripWithStops {
     const { stop_times, calendar, ...basics } = rawTrip;
 
     const tripId = parseInt(basics.trip_id);
@@ -25,29 +43,20 @@ import { NonBoundedTime } from './time-util';
         } as TripStop;
     });
 
-    const schedule = {
-        monday: calendar.monday == 'available',
-        tuesday: calendar.tuesday == 'available',
-        wednesday: calendar.wednesday == 'available',
-        thursday: calendar.thursday == 'available',
-        friday: calendar.friday == 'available',
-        saturday: calendar.saturday == 'available',
-        sunday: calendar.sunday == 'available',
-    } as Schedule;
-
     return {
         tripId: tripId,
         routeId: routeId,
         serviceStartDate: calendar.start_date,
         serviceEndDate: calendar.end_date,
-        schedule: schedule,
+        schedule: convertRawCalendar(calendar),
         headsign: basics.trip_headsign,
         shortName: basics.trip_short_name,
         direction: basics.direction_id,
         stops: tripStops,
-    } as Trip;
+    } as TripWithStops;
 }
 
 export {
+    convertRawCalendar,
     convertRawTrip,
 };

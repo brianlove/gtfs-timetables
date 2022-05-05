@@ -50,6 +50,15 @@ interface Stop {
     // TBD...
 };
 
+interface StopAndTrip {
+    stop: TripStop,
+    trip: TripWithRouteDetails,
+}
+
+interface StopWithTrips extends Stop {
+    trips: Array<StopAndTrip>,
+};
+
 interface TripStop {
     arrivalTime: NonBoundedTime,
     departureTime: NonBoundedTime,
@@ -64,7 +73,6 @@ interface TripStop {
 interface Trip {
     tripId: number,
     routeId: number,
-    // serviceId: number, // start/end date come from the services (calendar) table - do we really need this?
     serviceStartDate: string,
     serviceEndDate: string,
     schedule: Schedule,
@@ -74,6 +82,14 @@ interface Trip {
     blockId?: number,
     // wheelchairAccessible
     // bikesAllowed
+};
+
+interface TripWithRouteDetails extends Trip {
+    routeShortName?: string,
+    routeLongName?: string,
+};
+
+interface TripWithStops extends Trip {
     stops: Array<TripStop>,
 };
 
@@ -83,7 +99,7 @@ interface Train {
     agencyId: number,
     name: string,
     direction: 0 | 1 | undefined,
-    trips: Array<Trip>,
+    trips: Array<TripWithStops>,
 };
 
 
@@ -93,7 +109,11 @@ export type {
     RouteDetails,
     Schedule,
     Stop,
+    StopAndTrip,
+    StopWithTrips,
     Trip,
     TripStop,
+    TripWithRouteDetails,
+    TripWithStops,
     Train,
 };

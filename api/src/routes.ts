@@ -20,6 +20,7 @@ router.get('/train/:id', TripsController.findTripsForTrain);
 
 router.get('/stations/all', StopsController.findAll);
 router.get('/stations/:id', StopsController.findOne);
+router.get('/stations/:id/trains', StopsController.findStationTrains);
 router.get('/stops/all', StopsController.findAll);
 router.get('/stops/:id', StopsController.findOne);
 

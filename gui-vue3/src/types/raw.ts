@@ -12,7 +12,7 @@ interface RawGtfsCalendar {
     end_date: string,
 };
 
-interface RawGtfsRouteAndTrips {
+interface RawGtfsRoute {
     route_id: string,
     agency_id?: string,
     route_short_name?: string | null,
@@ -25,7 +25,28 @@ interface RawGtfsRouteAndTrips {
     route_sort_order?: string | null,
     continuous_pickup?: string | null,
     continuous_drop_off?: string | null,
+};
+
+interface RawGtfsRouteAndTrips extends RawGtfsRoute {
     trips: Array<RawGtfsTripExtended>,
+};
+
+interface RawGtfsStop {
+    stop_id: string,
+    stop_code?: string | null,
+    stop_name: string,
+    stop_desc?: string | null,
+    stop_loc?: any, // TODO - location
+    zone_id?: string | null,
+    stop_url?: string,
+    location_type?: string | null,
+    parent_station?: string | null,
+    stop_timezone?: string | null,
+    wheelchair_accessible?: string | null,
+};
+
+interface RawGtfsStopExtended extends RawGtfsStop {
+    stop_times: Array<RawGtfsStopTimeWithTrip>,
 };
 
 interface RawGtfsStopTime {
@@ -47,6 +68,10 @@ interface RawGtfsStopTime {
     timepoint?: string | null,
 };
 
+interface RawGtfsStopTimeWithTrip extends RawGtfsStopTime {
+    trip: RawGtfsTripWithRoute,
+}
+
 interface RawGtfsTrip {
     route_id: string,
     service_id: string,
@@ -65,11 +90,21 @@ interface RawGtfsTripExtended extends RawGtfsTrip {
     calendar: RawGtfsCalendar,
 };
 
+interface RawGtfsTripWithRoute extends RawGtfsTrip {
+    calendar: RawGtfsCalendar,
+    route: RawGtfsRoute,
+}
+
 
 export type {
     RawGtfsCalendar,
+    RawGtfsRoute,
     RawGtfsRouteAndTrips,
+    RawGtfsStop,
+    RawGtfsStopExtended,
     RawGtfsStopTime,
+    RawGtfsStopTimeWithTrip,
     RawGtfsTrip,
     RawGtfsTripExtended,
+    RawGtfsTripWithRoute,
 };

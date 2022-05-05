@@ -2,9 +2,9 @@
 import { Request, Response } from 'express';
 import { Op } from 'sequelize';
 
-import { Calendar, RouteModel, StopTime, TripModel } from '../models';
+import { Calendar, RouteModel, StopTimeModel, TripModel } from '../models';
 
-import type { Route, Schedule, Train, Trip, TripStop } from '@/types';
+import type { Route, Schedule, Train, Trip, TripStop, TripWithStops } from '@/types';
 import { RawGtfsRouteAndTrips } from '@/types/raw';
 import { convertRawTrip } from '../util-from-gui/conversions';
 
@@ -56,7 +56,7 @@ function findRouteStations(req, res) {
                     model: TripModel,
                     include: [
                         {
-                            model: StopTime,
+                            model: StopTimeModel,
                         },
                     ],
                 }
@@ -89,7 +89,7 @@ async function findRouteTrips(req: Request, res: Response) {
                     model: TripModel,
                     include: [
                         {
-                            model: StopTime,
+                            model: StopTimeModel,
                         },
                         {
                             model: Calendar,
@@ -120,7 +120,7 @@ async function findRouteTrips(req: Request, res: Response) {
             const convertedTrips = trips.map(convertRawTrip);
 
             const trainMapping = {} as TrainMapping;
-            convertedTrips.forEach((trip: Trip) => {
+            convertedTrips.forEach((trip: TripWithStops) => {
                 const trainId = parseInt(trip.shortName || '');
 
                 if ( trainMapping.hasOwnProperty(trainId) ) {

@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { Op } from 'sequelize';
 
-import { Calendar, StopTime, TripModel } from '../models';
+import { Calendar, StopTimeModel, TripModel } from '../models';
 
 import type { Route, Schedule, Train, Trip, TripStop } from '@/types';
 import { convertRawTrip } from '../util-from-gui/conversions';
@@ -61,7 +61,7 @@ function findTripsAndStopTimesForRoute(req, res) {
             // ],
             include: [
                 {
-                    model: StopTime,
+                    model: StopTimeModel,
                     // through: {
                     //     as: 'stops',
                     // },
@@ -90,7 +90,7 @@ async function findTripsForTrain(req: Request, res: Response) {
             },
             include: [
                 {
-                    model: StopTime,
+                    model: StopTimeModel,
                 },
                 {
                     model: Calendar,
