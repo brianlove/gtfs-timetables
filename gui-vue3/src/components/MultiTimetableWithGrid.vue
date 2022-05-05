@@ -26,7 +26,9 @@ const props = defineProps({
     <tr class="header-wrapper">
         <th class="corner-cell"></th>
         <th class="station-header" :class="{ major: MAJOR_STATIONS.includes(station) }" v-for="station in props.stations">
-            {{station}}
+            <router-link :to="{ name: 'stationPage', params: { id: station } }">
+                {{station}}
+            </router-link>
         </th>
     </tr>
     <div class="scrollable-wrapper">
@@ -94,6 +96,10 @@ const props = defineProps({
 
 .station-header.major {
     background-color: steelblue;
+    color: white;
+}
+
+.station-header.major a {
     color: white;
 }
 

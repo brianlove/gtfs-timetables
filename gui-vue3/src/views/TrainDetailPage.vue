@@ -30,15 +30,14 @@ onBeforeMount( async () => {
 <template>
 <div>
     <h3>
-        {{routeDetails.route_long_name || 'Train'}} #{{trainId}}
+        <router-link v-if="routeDetails" :to="{ name: 'routePage', params: {id: routeDetails.route_id} }">
+            {{routeDetails.route_long_name || 'Train'}}
+        </router-link>
+        <span v-else>
+            Train
+        </span>
+        #{{trainId}}
     </h3>
-
-    <div class="trip-selector">
-        <button type="button" class="btn btn-outline-secondary" v-for="(trip, index) in train.trips" :key="index">
-            {{trip.serviceStartDate}} &ndash; {{trip.serviceEndDate}}
-        </button>
-    </div>
-
 
     <div class="detail" v-for="(trip, index) in train.trips" :key="index">
         <div>

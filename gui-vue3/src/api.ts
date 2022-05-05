@@ -1,7 +1,7 @@
 
 import { API_URL } from './config';
 
-import type { Route, Schedule, Train, Trip, TripStop } from '@/types';
+import type { Route, Schedule, StopWithTrips, Train, Trip, TripStop } from '@/types';
 import type { RawGtfsRouteAndTrips, RawGtfsStopTime, RawGtfsTripExtended } from '@/types/raw';
 
 import { NonBoundedTime } from '@/util';
@@ -33,6 +33,17 @@ function getRouteAndTrips(routeId: number) : Promise<Route> {
 }
 
 
+function getStationAndTrains(stationId: string) {
+    return fetch(`${API_URL}/stations/${stationId}/trains`)
+        .then(response => response.json())
+        .then(data => data as StopWithTrips)
+        .then((response) => {
+            console.info("getStationAndTrains response:", response); // DEBUG
+            return response;
+        });
+}
+
+
 /**
  * Return the details of a `Train`, including an array of `Trip`s representing
  * the train's schedules.
@@ -51,5 +62,6 @@ export {
     getAllRoutes,
     getRoute,
     getRouteAndTrips,
+    getStationAndTrains,
     getTrainDetail,
 }

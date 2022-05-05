@@ -24,17 +24,20 @@ const props = defineProps({
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(stop, ix) in trip.stops" :key="ix">
+            <tr :class="{ major: MAJOR_STATIONS.includes(stop.stopId) }" v-for="(stop, ix) in trip.stops" :key="ix">
                 <th class="table-col-station">
-                    {{stop.stopId}}
+                    <router-link :to="{ name: 'stationPage', params: { id: stop.stopId } }">
+                        {{stop.stopId}}
+                    </router-link>
                 </th>
-                <TrainStopCell
-                    class="table-col-train"
-                    :arrive="stop.arrivalTime"
-                    :depart="stop.departureTime"
-                    :first="ix == 0"
-                    :last="ix == trip.stops.length - 1"
-                    :major="MAJOR_STATIONS.includes(stop.stopId)" />
+                <td class="table-col-train">
+                    <TrainStopCell
+                        :arrive="stop.arrivalTime"
+                        :depart="stop.departureTime"
+                        :first="ix == 0"
+                        :last="ix == trip.stops.length - 1"
+                        :major="MAJOR_STATIONS.includes(stop.stopId)" />
+                </td>
             </tr>
         </tbody>
     </table>
@@ -55,8 +58,28 @@ th {
     text-align: center;
 }
 
-.station {
-    background-color: lightgreen;
-    margin-bottom: 0.25rem;
+th.table-col-station {
+    width: 100px;
+}
+
+tr.major th.table-col-station {
+    background-color: steelblue;
+    color: white;
+}
+
+tr.major th.table-col-station a {
+    color: white;
+}
+
+tr:not(.major):nth-child(odd) td.table-col-train {
+    background-color: #efeff7;
+}
+
+tr:not(.major):nth-child(even) td.table-col-train {
+    background-color: #dfdfe7;
+}
+
+tr.major td.table-col-train {
+    background-color: lightsteelblue;
 }
 </style>
