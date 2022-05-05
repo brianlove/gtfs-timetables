@@ -78,6 +78,7 @@ interface Trip {
 };
 
 interface Train {
+    trainId: number,
     routeId: number,
     agencyId: number,
     name: string,

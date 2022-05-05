@@ -2,55 +2,22 @@
 import { computed, onBeforeMount, PropType, ref } from 'vue';
 
 import type { Train } from '@/types';
+import type { Timetable } from '@/types/timetable';
 import { MAJOR_STATIONS, STATIONS_BY_ROUTE } from '@/util/amtrak';
+
+import { generateTimetable } from '@/util/convert';
 
 import TrainStopCell from './TrainStopCell.vue';
 
 const props = defineProps({
-    route: {
-        type: Number,
+    stations: {
+        type: Array,
         required: true,
     },
-    trains: {
-        type: Object as PropType<Array<Train>>,
+    timetable: {
+        type: Object as PropType<Timetable>,
         required: true,
     },
-});
-
-const trainStations = ref({});
-
-const trainsInThisDirection = computed(() => {
-    if ( props.trains ) {
-        return props.trains.filter(train => train.direction == 1);
-    } else {
-        return [];
-    }
-});
-
-const stations = computed(() => {
-    if ( props.route == 88 ) {
-        return STATIONS_BY_ROUTE[88];
-    } else if ( trainsInThisDirection ) {
-        // This needs to be fixed to incorporate all the stops from all the trains we're dealing with
-        return trainsInThisDirection.value[0].trips[0].stops.map(stop => stop.stopId);
-    } else {
-        return [];
-    }
-})
-
-const stationMapping = computed(() => {
-    const mapping = {};
-    props.trains.forEach((train) => {
-        const stationMap = {};
-        train.trips[0].stops.forEach((stop, ix) => {
-            stationMap[stop.stopId] = {
-                ...stop,
-                first: ix == 0,
-            };
-        });
-        mapping[train.trainId] = stationMap;
-    });
-    return mapping;
 });
 </script>
 
@@ -58,22 +25,22 @@ const stationMapping = computed(() => {
 <table id="timetable">
     <tr class="header-wrapper">
         <th class="corner-cell"></th>
-        <th class="station-header" :class="{ major: MAJOR_STATIONS.includes(station) }" v-for="station in stations">
+        <th class="station-header" :class="{ major: MAJOR_STATIONS.includes(station) }" v-for="station in props.stations">
             {{station}}
         </th>
     </tr>
     <div class="scrollable-wrapper">
-        <tr class="train-wrapper" :data-train="train.trainId" v-for="train in trainsInThisDirection">
+        <tr class="train-wrapper" :data-train="train.id" v-for="train in props.timetable.trains">
             <th class="train-header">
-                {{train.trainId}}
+                {{train.id}}
             </th>
-            <td class="cell" :class="{ major: MAJOR_STATIONS.includes(station) }" v-for="(station, ix) in stations" :data-station="station">
+            <td class="cell" :class="{ major: MAJOR_STATIONS.includes(station) }" v-for="(station, ix) in props.stations" :data-station="station">
                 <TrainStopCell
-                    v-if="stationMapping[train.trainId][station]"
+                    v-if="train.stations[station]"
                     class="table-col-train"
-                    :arrive="stationMapping[train.trainId][station]?.arrivalTime"
-                    :depart="stationMapping[train.trainId][station]?.departureTime"
-                    :first="stationMapping[train.trainId][station]?.first"
+                    :arrive="train.stations[station]?.arrive"
+                    :depart="train.stations[station]?.depart"
+                    :first="train.stations[station]?.first"
                     :last="ix == stations.length - 1"
                     :major="MAJOR_STATIONS.includes(station)" />
                 <div v-else>&nbsp;</div>
