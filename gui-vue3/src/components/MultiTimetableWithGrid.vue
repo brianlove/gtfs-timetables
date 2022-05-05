@@ -58,7 +58,7 @@ const props = defineProps({
     grid-auto-rows: minmax(30px, max-content);
     grid-template-columns: [station-start] 100px [station-end] repeat(4, 80px);
     grid-template-rows: [header-start] 30px [header-end] repeat(v-bind('stations.length'), max-content);
-    height: 500px;
+    height: calc(100vh - 220px);
     overflow: auto;
     width: calc(100vw - 2rem);
 }
