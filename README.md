@@ -9,23 +9,29 @@ for other providers in the future.
 ## Installation and operation
 
 1. Clone the repository
-    ```
+    ```bash
     $ git clone git@github.com:brianlove/gtfs-timetables.git
     $ cd gtfs-timetables
     ```
 
 2. Download a GTFS dataset, such as Amtrak's feed from 6 October 2021: https://transitfeeds.com/p/amtrak/1136/20211006.  Unzip the data into the `data/` directory
-    ```
+    ```bash
     $ mkdir data
     $ unzip gtfs.zip -d data/
     ```
 
-3. Start the containers via Docker Compose:
+3. Create `database.env` file in the root directory to configure the database username and password:
     ```
+    POSTGRES_PASSWORD=password
+    POSTGRES_USER=timetable
+    ```
+
+4. Start the containers via Docker Compose:
+    ```bash
     $ docker-compose up --build
     ```
 
-4. Build and run the ingest container to populate the database with the provided data:
+5. Build and run the ingest container to populate the database with the provided data:
     ```bash
     $ cd ingest/
 
@@ -34,10 +40,23 @@ for other providers in the future.
     $ cd ..
 
     ## Note that the format of the `$(pwd)` may vary depending on your platform
-    $ docker run -d --volume "$(pwd)/data:/gtfs" -e PGHOST=timetable-db --network gtfs-timetables_default import-gtfs -- agency.txt feed_info.txt routes.txt stop_times.txt stops.txt transfers.txt trips.txt
+    $ docker run -d --name timetable-ingest --volume "$(pwd)/data:/gtfs" -e PGHOST=timetable-db --network gtfs-timetables_default import-gtfs -- agency.txt feed_info.txt routes.txt stop_times.txt stops.txt transfers.txt trips.txt
     ```
 
-5. Access GTFS Timetables via http://localhost:8080
+6. Check that the ingest worked properly
+    ```bash
+    ## View the logs for the ingest container.  Output should include a bunch of
+    ## SQL commands, such as "CREATE INDEX" and "CREATE VIEW", ending with "COMMIT"
+    $ docker container logs timetable-ingest
+
+    ## View the Postgres database to ensure that the data were imported
+    $ docker container exec -it timetable-db psql -U timetable
+    timetable> \d                       # view list of tables and relations
+    timetable> SELECT * FROM routes;    # View the routes table
+    timetable> exit                     # exit
+    ```
+
+7. Access GTFS Timetables via http://localhost:8080
 
 
 ## General layout
