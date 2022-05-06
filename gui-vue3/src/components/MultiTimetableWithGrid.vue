@@ -26,7 +26,7 @@ const props = defineProps({
     <tr class="header-wrapper">
         <th class="corner-cell"></th>
         <th class="station-header" :class="{ major: MAJOR_STATIONS.includes(station) }" v-for="station in props.stations">
-            <router-link :to="{ name: 'stationPage', params: { id: station } }">
+            <router-link :to="{ name: 'stationDetail', params: { id: station } }">
                 {{station}}
             </router-link>
         </th>
@@ -34,7 +34,9 @@ const props = defineProps({
     <div class="scrollable-wrapper">
         <tr class="train-wrapper" :data-train="train.id" v-for="train in props.timetable.trains">
             <th class="train-header">
-                {{train.id}}
+                <router-link :to="{ name: 'train', params: {id: train.id} }">
+                    {{train.id}}
+                </router-link>
             </th>
             <td class="cell" :class="{ major: MAJOR_STATIONS.includes(station) }" v-for="(station, ix) in props.stations" :data-station="station">
                 <TrainStopCell
@@ -54,7 +56,6 @@ const props = defineProps({
 
 <style>
 #timetable {
-    background-color: lightyellow;
     display: grid;
     grid-auto-flow: column;
     grid-auto-rows: minmax(30px, max-content);

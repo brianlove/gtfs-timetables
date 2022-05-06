@@ -1,10 +1,7 @@
 
 import { API_URL } from './config';
 
-import type { Route, Schedule, StopWithTrips, Train, Trip, TripStop } from '@/types';
-import type { RawGtfsRouteAndTrips, RawGtfsStopTime, RawGtfsTripExtended } from '@/types/raw';
-
-import { NonBoundedTime } from '@/util';
+import type { Route, StopWithTrips, Train } from '@/types';
 
 
 function getAllRoutes() {
@@ -25,22 +22,20 @@ function getRoute(routeId: string) {
 function getRouteAndTrips(routeId: number) : Promise<Route> {
     return fetch(`${API_URL}/routes/${routeId}/detailsAndTrips`)
         .then(response => response.json())
-        .then(data => data as Route)
-        .then((response) => {
-            console.info("getRouteAndTrips response:", response); // DEBUG
-            return response;
-        });
+        .then(data => data as Route);
+}
+
+
+function getAllStations() {
+    return fetch(`${API_URL}/stations/all`)
+        .then(response => response.json());
 }
 
 
 function getStationAndTrains(stationId: string) {
     return fetch(`${API_URL}/stations/${stationId}/trains`)
         .then(response => response.json())
-        .then(data => data as StopWithTrips)
-        .then((response) => {
-            console.info("getStationAndTrains response:", response); // DEBUG
-            return response;
-        });
+        .then(data => data as StopWithTrips);
 }
 
 
@@ -51,17 +46,17 @@ function getStationAndTrains(stationId: string) {
 function getTrainDetail(trainId: number) : Promise<Train> {
     return fetch(`${API_URL}/train/${trainId}`)
         .then(response => response.json())
-        .then(data => data as Train)
-        .then((response) => {
-            console.info("getTrainTrips response:", response); // DEBUG
-            return response;
-        });
+        .then(data => data as Train);
 }
+
 
 export {
     getAllRoutes,
     getRoute,
     getRouteAndTrips,
+
+    getAllStations,
     getStationAndTrains,
+
     getTrainDetail,
 }

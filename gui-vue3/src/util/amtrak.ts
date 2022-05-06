@@ -1,8 +1,9 @@
 
 const MAJOR_STATIONS = [
     'BOS', 'SPG', 'NHV', 'NYP', 'PHL', 'WAS', 'RVM',
-    'CHI',
-    'STL', 'DAL',
+    'CHI', 'PGH', 'TOL',
+    'STL', 'DAL', 'KCY',
+    'DEN', 'SEA', 'OKJ', 'LAX', 'NOL',
 ];
 
 const NORTHEAST_REGIONAL_STATIONS = [

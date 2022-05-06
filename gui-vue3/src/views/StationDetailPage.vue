@@ -26,8 +26,13 @@ onBeforeMount( async () => {
 <template>
 <div class="wrapper">
     <h3>
-        {{station.name}}
+        {{station.name}} ({{station.stopId}})
     </h3>
+    <div v-if="station.url">
+        <label>Website:</label>
+        <a :href="station.url" target="_blank">{{station.url}}</a>
+    </div>
+
     <div class="mb-2" v-if="station.trips">
         <label>Trains per day:</label>
         {{station.trips?.length}}

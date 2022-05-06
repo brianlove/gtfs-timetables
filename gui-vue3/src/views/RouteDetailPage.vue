@@ -94,7 +94,4 @@ onBeforeMount( async () => {
 </template>
 
 <style scoped>
-.detail-wrapper {
-    background-color: lightblue;
-}
 </style>

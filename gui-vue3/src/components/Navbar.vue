@@ -12,13 +12,11 @@
                 Routes
             </RouterLink>
         </li>
-        <!--
         <li class="nav-item">
             <RouterLink class="nav-link" to="/stations">
                 Stations
             </RouterLink>
         </li>
-        -->
     </ul>
 </nav>
 </template>

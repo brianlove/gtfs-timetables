@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import RouteList from '../views/RouteList.vue';
 import RouteDetailPage from '../views/RouteDetailPage.vue';
+import StationList from '../views/StationList.vue';
 import StationDetailPage from '../views/StationDetailPage.vue';
 import TrainDetailPage from '../views/TrainDetailPage.vue';
 
@@ -24,12 +25,12 @@ const router = createRouter({
     },
     {
       path: '/routes',
-      name: 'routes',
+      name: 'routeList',
       component: RouteList,
     },
     {
       path: '/routes/:id',
-      name: 'routePage',
+      name: 'routeDetail',
       component: RouteDetailPage,
       props: (route) => {
         const routeId = Number.parseInt(<string>route.params.id, 10);
@@ -40,8 +41,13 @@ const router = createRouter({
       },
     },
     {
+      path: '/stations',
+      name: 'stationList',
+      component: StationList,
+    },
+    {
       path: '/station/:id',
-      name: 'stationPage',
+      name: 'stationDetail',
       component: StationDetailPage,
       props: (route) => {
         return {

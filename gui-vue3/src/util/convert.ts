@@ -37,10 +37,15 @@ function generateTimetable(trains: Array<Train>, sortStation?: string): Timetabl
 
     if ( sortStation ) {
         timetable.trains.sort((trainA, trainB) => {
-            const departureA = new NonBoundedTime(trainA.stations[sortStation].depart);
-            const departureB = new NonBoundedTime(trainB.stations[sortStation].depart);
-
-            return departureA.compare(departureB);
+            if ( !trainA.stations?.[sortStation] ) {
+                return -1;
+            } else if ( !trainB.stations?.[sortStation] ) {
+                return 1;
+            } else {
+                const departureA = new NonBoundedTime(trainA.stations[sortStation].depart);
+                const departureB = new NonBoundedTime(trainB.stations[sortStation].depart);
+                return departureA.compare(departureB);
+            }
         });
     }
 

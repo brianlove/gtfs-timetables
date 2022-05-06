@@ -23,7 +23,7 @@ const departureTime = computed(() => {
 <template>
 <div>
     <div>
-        <router-link class="route" :to="{ name: 'routePage', params: {id: props.train.trip.routeId} }">
+        <router-link class="route" :to="{ name: 'routeDetail', params: {id: props.train.trip.routeId} }">
             {{props.train.trip.routeShortName || props.train.trip.routeLongName}}
         </router-link>
 

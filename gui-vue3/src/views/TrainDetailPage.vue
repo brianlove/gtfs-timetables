@@ -20,17 +20,15 @@ const train = ref([]);
 const routeDetails = ref({});
 
 onBeforeMount( async () => {
-    console.info('mounting...');
     train.value = await getTrainDetail(props.trainId);
     routeDetails.value = await getRoute(train.value.routeId);
 })
-
 </script>
 
 <template>
 <div>
     <h3>
-        <router-link v-if="routeDetails" :to="{ name: 'routePage', params: {id: routeDetails.route_id} }">
+        <router-link v-if="routeDetails && routeDetails.route_id" :to="{ name: 'routeDetail', params: {id: routeDetails.route_id} }">
             {{routeDetails.route_long_name || 'Train'}}
         </router-link>
         <span v-else>
@@ -57,12 +55,8 @@ onBeforeMount( async () => {
             <a :href="routeDetails.route_url" target="_blank">{{routeDetails.route_url}}</a>
         </div>
 
-        <hr />
-
-        <SingleTimetable :trip="trip" />
+        <SingleTimetable class="mt-3" :trip="trip" />
     </div>
-
-    <!-- <TrainTimetable :trips="trips" /> -->
 </div>
 </template>
 
@@ -81,14 +75,7 @@ label {
 }
 
 .detail {
-    background-color: lightblue;
-    border: 1px solid gray;
     margin-bottom: 1rem;
-    padding: 0.5rem;
-}
-
-.stations {
-    background-color: salmon;
     padding: 0.5rem;
 }
 </style>

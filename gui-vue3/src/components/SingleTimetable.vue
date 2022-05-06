@@ -26,7 +26,7 @@ const props = defineProps({
         <tbody>
             <tr :class="{ major: MAJOR_STATIONS.includes(stop.stopId) }" v-for="(stop, ix) in trip.stops" :key="ix">
                 <th class="table-col-station">
-                    <router-link :to="{ name: 'stationPage', params: { id: stop.stopId } }">
+                    <router-link :to="{ name: 'stationDetail', params: { id: stop.stopId } }">
                         {{stop.stopId}}
                     </router-link>
                 </th>
@@ -46,7 +46,6 @@ const props = defineProps({
 
 <style scoped>
 table {
-    background-color: lightyellow;
     border: 1px solid #ccc;
 }
 
