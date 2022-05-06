@@ -12,5 +12,3 @@ WORKDIR /gtfs
 
 # pass all arguments into gtfs-via-postgres, pipe output into psql:
 ENTRYPOINT ["/bin/sh", "-c", "env | grep PG; gtfs-via-postgres --trips-without-shape-id $0 $@ | psql -b"]
-# ENTRYPOINT ["ls", "-la"]
-# ENTRYPOINT ["pwd"]
