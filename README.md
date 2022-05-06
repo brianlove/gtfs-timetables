@@ -40,7 +40,7 @@ for other providers in the future.
     $ cd ..
 
     ## Note that the format of the `$(pwd)` may vary depending on your platform
-    $ docker run -d --name timetable-ingest --volume "$(pwd)/data:/gtfs" -e PGHOST=timetable-db --network gtfs-timetables_default import-gtfs -- agency.txt feed_info.txt routes.txt stop_times.txt stops.txt transfers.txt trips.txt
+    $ docker container run -d --name timetable-ingest --volume "$(pwd)/data:/gtfs" -e PGHOST=timetable-db --network gtfs-timetables_default import-gtfs -- agency.txt calendar.txt feed_info.txt routes.txt stop_times.txt stops.txt transfers.txt trips.txt
     ```
 
 6. Check that the ingest worked properly
