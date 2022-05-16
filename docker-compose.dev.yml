@@ -1,0 +1,14 @@
+
+version: "3"
+services:
+  gui-vue3:
+    build:
+      dockerfile: gui-vue3.Dockerfile
+    # command: dev
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./gui-vue3:/usr/src/app
+      - /usr/src/app/node_modules

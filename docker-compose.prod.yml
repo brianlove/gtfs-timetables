@@ -1,0 +1,22 @@
+
+version: "3"
+services:
+  webserver:
+    container_name: timetable-webserver
+    build:
+      context: ./webserver
+      dockerfile: webserver.Dockerfile
+    depends_on:
+      - gui-vue3
+      - api
+    ports:
+      - "80:80"
+
+  gui-vue3:
+    build:
+      dockerfile: gui-vue3.prod.Dockerfile
+    # command: build
+    environment:
+      VITE_API_URL: http://api:3000/api
+    ports:
+      - "8080:8080"

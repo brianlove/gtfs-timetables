@@ -1,6 +1,16 @@
 <script setup lang="ts">
+import { onBeforeMount } from 'vue';
+
 import HomeRouteLink from '@/components/HomeRouteLink.vue';
 import HomeStationLink from '@/components/HomeStationLink.vue';
+
+import { API_URL } from '../config';
+
+onBeforeMount(() => {
+  console.info("RouteList::API_URL", API_URL); // DEBUG
+  window.console.error("window.console.error"); // DEBUG
+  window.console.info("window.console.info"); // DEBUG
+});
 </script>
 
 <template>

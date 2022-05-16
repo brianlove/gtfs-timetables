@@ -5,6 +5,8 @@ import type { Route, StopWithTrips, Train } from '@/types';
 
 
 function getAllRoutes() {
+    console.info("API_URL", API_URL); // DEBUG
+
     return fetch(`${API_URL}/routes/all`)
         .then(response => response.json());
 }
@@ -20,7 +22,10 @@ function getRoute(routeId: string) {
  * `Trip`s that form them.
  */
 function getRouteAndTrips(routeId: number) : Promise<Route> {
-    return fetch(`${API_URL}/routes/${routeId}/detailsAndTrips`)
+    // console.info("API_URL", API_URL); // DEBUG
+
+    // return fetch(`${API_URL}/routes/${routeId}/detailsAndTrips`)
+    return fetch(`api/routes/${routeId}/detailsAndTrips`)
         .then(response => response.json())
         .then(data => data as Route);
 }
