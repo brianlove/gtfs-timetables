@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -9,6 +11,9 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <Link to="/routes">Routes</Link>
+        <Link to="/stations">Stations</Link>
+        <p>Test reload again?</p>
         <a
           className="App-link"
           href="https://reactjs.org"
