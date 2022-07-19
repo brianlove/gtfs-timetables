@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
+
 import reactLogo from './assets/react.svg'
 import './App.css'
 
@@ -16,6 +18,11 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <div>
+        <p>Sample</p>
+        <Link to="/routes">Routes</Link>
+        <Link to="/stations">Stations</Link>
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
